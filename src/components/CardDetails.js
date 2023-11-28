@@ -8,11 +8,12 @@ import { addToCart,removeFromCart,removeSingle,emptyCart} from '../redux/feature
 // add
 const CardDetails = () => {
     const {carts}=useSelector((state)=>state.allCart);
+    console.log(carts,"sdfgh")
     const [totalPrice,setPrice]=useState(0);
     const [totalQnty,setTotalQnty]=useState(0);
    
-    const array=useSelector((state)=>state.user);
-console.log("my array ",array)
+//     const array=useSelector((state)=>state.user);
+// console.log("my array ",array)
 
     const dispatch=useDispatch();
     const handleIncr=(e)=>{

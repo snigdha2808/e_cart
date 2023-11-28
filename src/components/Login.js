@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {useNavigate, Navigate} from 'react-router-dom';
+import {useNavigate, Navigate, NavLink} from 'react-router-dom';
 function Login() {
     const detailsN=useNavigate();
     const [inpval,setInpval]=useState({
@@ -28,8 +28,8 @@ function Login() {
     const addData=(e)=>{
         e.preventDefault();
         // console.log(inpval);
-        const getuserArr=localStorage.getItem("userSnigdha");
-         console.log(getuserArr);
+        const getuserArr=localStorage.getItem("userData");
+         console.log("................",getuserArr);
 
         const {email,password}=inpval;
         
@@ -53,11 +53,23 @@ function Login() {
             {
                 console.log("userLogin");
                 const userData=JSON.parse(getuserArr);
-                const userLogin=userData.filter((el,ind)=>{
-                    return el.email===email && el.password===password
-                }); 
+                console.log("userData",userData);
+                let userLogin=false;
+                if(userData.email===email && userData.password===password)
+                    {
+                        userLogin= true;
+                    }
+
+                    // console.log("userData",userLogin);
+                // const userLogin=true;
+                // const userLogin=userData.filter((el,ind)=>{
+                //      if(el.email===email && el.password===password)
+                //     {
+                //         return true;
+                //     }
+                // }); 
                 //console.log(userLogin);
-                if(userLogin.length===0){
+                if(!userLogin){
                     alert("invalid details");
                 }
                 else{
@@ -68,6 +80,7 @@ function Login() {
                 }
             }
         }
+        //detailsN('/details')
     }
   return (
     <>
@@ -89,6 +102,7 @@ function Login() {
                         Submit
                     </Button>
                 </Form>
+                <p>Don't have an account <span> <NavLink to="/"> Sign Up</NavLink></span>   </p>
             </div>
 
         </section>

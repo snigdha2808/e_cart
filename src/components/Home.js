@@ -1,25 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { NavLink , useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { adduser } from '../redux/features/cartSlice';
 
 
 function Home() {
     const [inpval,setInpval]=useState({
         name:"",email:"",date:"",password:""
     });
-    const [data,setData]=useState([])
+
+
+    // const array=useSelector((state)=>state.Userdata)
+    // console.log("my nerd array",array);
+    // useEffect(()=>{localStorage.setItem("userData1",JSON.stringify(array))},[array])
+    
+    
+    const dispatch=useDispatch()
+    
+    const [data,setData]=useState()
     console.log(inpval)
     const getData=(e)=>{
-        //console.log(e.target.value);
+        e.preventDefault();
         const {value,name}=e.target;
         //console.log(value,name)
-        setInpval(()=>{
+        setInpval((previe)=>{
             return{
-                ...inpval,[name]:value
+                ...previe,[name]:value
             }
         })
     }
+    
+    
     const navigate=useNavigate();
     const addData=(e)=>{
         e.preventDefault();
@@ -44,7 +57,10 @@ function Home() {
             alert("password length must be greater than 5")
         }
         else{
-            localStorage.setItem("userData",JSON.stringify([...data,inpval]));
+            // localStorage.setItem("userData",JSON.stringify([...data,inpval]));
+            // setData(inpval);
+            localStorage.setItem("userData",JSON.stringify(inpval))
+        //   dispatch(adduser(inpval))
            navigate('/details')
         }
     }
